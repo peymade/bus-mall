@@ -41,47 +41,101 @@ const renderProducts = function() {
 }
 
 function productSelector() {
-  const leftIndex = Math.floor(Math.random() * Product.allProducts.length);
-
-  let rightIndex = Math.floor(Math.random() * Product.allProducts.length);
-
-  let centerIndex = Math.floor(Math.random() * Product.allProducts.length);
-
-  console.log(Product.allProducts);
+  const previousProducts = [];
+  previousProducts.push(leftProduct);
+  previousProducts.push(centerProduct);
+  previousProducts.push(rightProduct);
+  console.log(previousProducts);
 
   // a different index number than the first one
-  while (rightIndex === leftIndex){
-   rightIndex = Math.floor(Math.random() * Product.allProducts.length);
-  }
-  while (centerIndex === rightIndex || centerIndex === leftIndex) {
-    centerIndex = Math.floor(Math.random() * Product.allProducts.length);
-  }
+   while (previousProducts.includes(rightProduct)){
+    let rightIndex = Math.floor(Math.random() * Product.allProducts.length);
+    rightProduct = Product.allProducts[rightIndex];
+   } previousProducts.push(rightProduct);
 
- //  GoatPictures.allImages[leftIndex]
- leftProduct = Product.allProducts[leftIndex];
- centerProduct = Product.allProducts[centerIndex];
- rightProduct = Product.allProducts[rightIndex];
-}        
+  while (previousProducts.includes(leftProduct)) {
+   let leftIndex = Math.floor(Math.random() * Product.allProducts.length);
+    leftProduct = Product.allProducts[leftIndex];
+  } previousProducts.push(leftProduct);
+
+  while (previousProducts.includes(centerProduct)) {
+    let centerIndex = Math.floor(Math.random() * Product.allProducts.length);
+    centerProduct = Product.allProducts[centerIndex];
+  }
+}   
 
 
 function displayVoteCount() {
   // remove current input and replace
   results.innerHTML = ' ';
   for (let i = 0; i < Product.allProducts.length; i++) {
-    console.log(Product.allProducts[i]);
     const liElem = document.createElement('li');
     liElem.textContent = (Product.allProducts[i].name + ' had ' + Product.allProducts[i].clicks + ' votes, and was seen ' + Product.allProducts[i].timesShown + ' times.');
     results.appendChild(liElem);
   }
 }
 
+function renderChart() {
+  let labelData = [];
+  for (let i = 0; i < Product.allProducts.length; i++){
+    labelData.push(Product.allProducts[i].name);
+    // console.log(Product.allProducts[i].name);
+  }
+  let voteData = [];
+  for (let i = 0; i < Product.allProducts.length; i++){
+    voteData.push(Product.allProducts[i].clicks);
+  }
+
+
+var ctx = document.getElementById('productChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: labelData,
+        datasets: [{
+            label: '# of Votes',
+            data: voteData,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+
+}
+
+
+
+
 function handleClick(event) {
-  console.log(event.target);
+  // console.log(event.target);
   const clickedTarget = event.target;
   const id = clickedTarget.id;
-  console.log(id);
+  // console.log(id);
 
-  if (totalClicks < 24) {
+  if (totalClicks < 4) {
     if (id === 'left_product_img' || id === 'right_product_img' || id === 'center_product_img') {
       if (id === 'left_product_img') {
         leftProduct.clicks++;
@@ -109,12 +163,13 @@ function makeButton() {
   const att = document.createAttribute("onclick");
   att.value = "handleSubmit()";
   btn.setAttributeNode(att);
-  console.log(btn);
+  // console.log(btn);
   buttonAdd.appendChild(btn);
 }
 
 function handleSubmit() {
   displayVoteCount();
+  renderChart();
 }
 
 new Product('bag', 'img/bag.jpg');
@@ -140,7 +195,6 @@ new Product('wine-glass', 'img/wine-glass.jpg');
 
 
 
-console.log(Product.allProducts[3]);
 
 products.addEventListener('click', handleClick);
 
