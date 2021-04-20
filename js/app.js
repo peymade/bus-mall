@@ -9,6 +9,7 @@ const centerProductImage = document.getElementById('center_product_img');
 const rightProductImage = document.getElementById('right_product_img');
 const leftProductP = document.getElementById('left_goat_p');
 const rightProductP = document.getElementById('right_goat_p');
+const buttonAdd = document.getElementById('buttonOne');
 
 let totalClicks = 0;
 
@@ -65,7 +66,7 @@ function displayVoteCount() {
   for (let i = 0; i < Product.allProducts.length; i++) {
     console.log(Product.allProducts[i]);
     const liElem = document.createElement('li');
-    liElem.textContent = Product.allProducts[i].name
+    liElem.textContent = (Product.allProducts[i].name + ' had ' + Product.allProducts[i].clicks + ' votes, and was seen ' + Product.allProducts[i].timesShown + ' times.');
     results.appendChild(liElem);
   }
 }
@@ -94,30 +95,44 @@ function handleClick(event) {
     }
   } else {
     products.removeEventListener('click', handleClick);
-    displayVoteCount();
+    makeButton();
   }
 }
 
-new Product('Bag', 'img/bag.jpg');
-new Product('Banana', 'img/banana.jpg');
-new Product('Bathroom', 'img/bathroom.jpg');
-new Product('Boots', 'img/boots.jpg');
-new Product('Breakfast', 'img/breakfast.jpg');
-new Product('Bubblegum', 'img/bubblegum.jpg');
-new Product('Chair', 'img/chair.jpg');
-new Product('Cthulhu', 'img/cthulhu.jpg');
-new Product('Dog Duck', 'img/dog-duck.jpg');
-new Product('Dragon', 'img/dragon.jpg');
-new Product('Pen', 'img/pen.jpg');
-new Product('Pet Sweep', 'img/pet-sweep.jpg');
-new Product('Scissors', 'img/scissors.jpg');
-new Product('Shark', 'img/shark.jpg');
-new Product('Sweep', 'img/sweep.png');
-new Product('Tauntaun', 'img/tauntaun.jpg');
-new Product('Unicorn', 'img/unicorn.jpg');
-new Product('USB', 'img/usb.gif');
-new Product('Water Can', 'img/water-can.jpg');
-new Product('Wine Glass', 'img/wine-glass.jpg');
+function makeButton() {
+  const btn = document.createElement("BUTTON");
+  btn.innerHTML = "View Results";
+  const att = document.createAttribute("onclick");
+  att.value = "handleSubmit()";
+  btn.setAttributeNode(att);
+  console.log(btn);
+  buttonAdd.appendChild(btn);
+}
+
+function handleSubmit() {
+  displayVoteCount();
+}
+
+new Product('bag', 'img/bag.jpg');
+new Product('banana', 'img/banana.jpg');
+new Product('bathroom', 'img/bathroom.jpg');
+new Product('boots', 'img/boots.jpg');
+new Product('breakfast', 'img/breakfast.jpg');
+new Product('bubblegum', 'img/bubblegum.jpg');
+new Product('chair', 'img/chair.jpg');
+new Product('cthulhu', 'img/cthulhu.jpg');
+new Product('dog-duck', 'img/dog-duck.jpg');
+new Product('dragon', 'img/dragon.jpg');
+new Product('pen', 'img/pen.jpg');
+new Product('pet-sweep', 'img/pet-sweep.jpg');
+new Product('scissors', 'img/scissors.jpg');
+new Product('shark', 'img/shark.jpg');
+new Product('sweep', 'img/sweep.png');
+new Product('tauntaun', 'img/tauntaun.jpg');
+new Product('unicorn', 'img/unicorn.jpg');
+new Product('usb', 'img/usb.gif');
+new Product('water-can', 'img/water-can.jpg');
+new Product('wine-glass', 'img/wine-glass.jpg');
 
 
 
