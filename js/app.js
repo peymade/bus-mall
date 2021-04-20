@@ -7,8 +7,9 @@ const products = document.getElementById('total_products');
 const leftProductImage = document.getElementById('left_product_img');
 const centerProductImage = document.getElementById('center_product_img');
 const rightProductImage = document.getElementById('right_product_img');
-const leftProductP = document.getElementById('left_goat_p');
-const rightProductP = document.getElementById('right_goat_p');
+const leftProductH = document.getElementById('left_product_h');
+const centerProductH = document.getElementById('center_product_h');
+const rightProductH = document.getElementById('right_product_h');
 const buttonAdd = document.getElementById('buttonOne');
 
 let totalClicks = 0;
@@ -34,6 +35,9 @@ const renderProducts = function() {
   leftProductImage.src = leftProduct.imgPath;
   centerProductImage.src = centerProduct.imgPath;
   rightProductImage.src = rightProduct.imgPath;
+  leftProductH.textContent = leftProduct.name;
+  centerProductH.textContent = centerProduct.name;
+  rightProductH.textContent = rightProduct.name;
 }
 
 function productSelector() {
@@ -77,7 +81,7 @@ function handleClick(event) {
   const id = clickedTarget.id;
   console.log(id);
 
-  if (totalClicks < 3) {
+  if (totalClicks < 24) {
     if (id === 'left_product_img' || id === 'right_product_img' || id === 'center_product_img') {
       if (id === 'left_product_img') {
         leftProduct.clicks++;
