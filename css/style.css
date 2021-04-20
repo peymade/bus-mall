@@ -1,0 +1,87 @@
+body * {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  width: 100%;
+  background-color:rgb(188, 217, 218);
+}
+
+header {
+  background-color: blue;
+}
+
+h1 {
+  color: white;
+  font-size: 2em;
+  text-align: center;
+  padding: 5px;
+}
+
+h2 {
+  color: white;
+  background-color: blueviolet;
+  font-size: 1.5em;
+  text-align: center;
+  padding: 5px;
+}
+
+#flex {
+  display: flex;
+}
+
+#aside {
+  width: 30%;
+  margin-left: 15px;
+  float: left;
+  font-style: italic;
+  background-color: rgb(224, 223, 223);
+  line-height: 1.5em;
+}
+
+#total_products {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#total_products div {
+  display: flex;
+}
+
+#total_products img {
+  width: 200px;
+  margin: 30px;
+  display: block;
+}
+
+#total_products p {
+  margin: 10px auto;  
+}
+
+
+#welcome p {
+width: 50%;
+margin: 10px auto;
+}
+
+footer {
+  background-color: rgb(230, 228, 228);
+  text-align: center;
+  padding: 15px;
+  position: absolute;
+  left: 0;
+  right: 0; 
+  bottom: 0;
+}
+
+#buttonOne {
+  width: 30px;
+  margin: 10px auto;
+}
+
+#left_product {
+  display: flex;
+  justify-content: center;
+}
