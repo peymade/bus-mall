@@ -225,7 +225,7 @@ function handleClick(event) {
   const id = clickedTarget.id;
   // console.log(id);
 
-  if (totalClicks < 4) {
+  if (totalClicks < 24) {
     if (id === 'left_product_img' || id === 'right_product_img' || id === 'center_product_img') {
       if (id === 'left_product_img') {
         leftProduct.clicks++;
