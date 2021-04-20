@@ -1,11 +1,11 @@
 main {
   display: grid;
-  grid-template-columns: repeat(5, 20%);
+  grid-template-columns: repeat(4, 25%);
   grid-template-rows: repeat(5, 250px);
 }
 
 #total_products div {
-  width: 250px;
+  width: 300px;
   height: 250px;
 }
 

@@ -3,6 +3,7 @@
 // All the product images
 
 const results = document.getElementById('results');
+const resultTab = document.getElementById('aside');
 const products = document.getElementById('total_products');
 const leftProductImage = document.getElementById('left_product_img');
 const centerProductImage = document.getElementById('center_product_img');
@@ -86,6 +87,11 @@ function renderChart() {
     voteData.push(Product.allProducts[i].clicks);
   }
 
+  let timesShownData = [];
+  for (let i = 0;i < Product.allProducts.length; i++) {
+    timesShownData.push(Product.allProducts[i].timesShown)
+  }
+
 
 var ctx = document.getElementById('productChart').getContext('2d');
 var myChart = new Chart(ctx, {
@@ -96,23 +102,107 @@ var myChart = new Chart(ctx, {
             label: '# of Votes',
             data: voteData,
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
                 'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)'
             ],
             borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
+                'purple',
+                'purple',
+                'purple',
+                'purple',
+                'purple',
+                'purple',
+                'purple',
+                'purple',
+                'purple',
+                'purple',
+                'purple',
+                'purple',
+                'purple',
+                'purple',
+                'purple',
+                'purple',
+                'purple',
+                'purple',
+                'purple',
+                'purple'
             ],
             borderWidth: 1
-        }]
+        },
+      
+        {
+          label: '# of Times Shown',
+          data: timesShownData,
+          backgroundColor: [
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'orange',
+            'orange',
+            'orange',
+            'orange',
+            'orange',
+            'orange',
+            'orange',
+            'orange',
+            'orange',
+            'orange',
+            'orange',
+            'orange',
+            'orange',
+            'orange',
+            'orange',
+            'orange',
+            'orange',
+            'orange',
+            'orange',
+            'orange'
+          ],
+          borderWidth: 1
+        }
+      
+      
+      ]
+
+
+
     },
     options: {
         scales: {
