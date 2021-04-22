@@ -1,6 +1,8 @@
 'use strict';
 
 // All the product images
+// Store the products array into local storage as a formatted JSON string
+// Retrieve the products array from local storage and then utilize the JSON.Parse() function. Remember, if your constructor utilizes prototype methods, you will have to send each item in the array back through the constructor function. 
 
 const results = document.getElementById('results');
 const resultTab = document.getElementById('aside');
@@ -19,18 +21,75 @@ let leftProduct = null;
 let centerProduct = null;
 let rightProduct = null;
 
-function Product(name, imgPath) {
+function Product(name, imgPath, clicks, timesShown) {
   this.name = name;
   this.imgPath = imgPath;
-  this.clicks = 0;
-  this.timesShown = 0;
+  this.clicks = clicks;
+  this.timesShown = timesShown;
 
   Product.allProducts.push(this);
 }
 
+// If there is something in storage, use it and add to it
+// If there is nothing in storage, make the products and get ready to add numbers to them. Make sure to add those numbers to the storage too.
 
-// Array with all products when they are created
+// Array with all products when they are created. STORE IN LOCAL STORAGE
 Product.allProducts = [];
+
+function getProductsFromStorage() {
+  // Set variable equal to previous orders in local storage
+  let stringifiedOrders = localStorage.getItem('previousOrders');
+  console.log(stringifiedOrders, "out of storage");
+
+  // Take whatever was gotten out of storage and evaluate
+  if (stringifiedOrders === null) {
+    // If there is nothing in storage, make the new items and go through loop again
+    makeProducts();   
+    getProductsFromStorage();
+    }
+
+  if (stringifiedOrders !== null) {
+    let parsedOrders = JSON.parse(stringifiedOrders);
+    console.log(parsedOrders);
+    for (let i = 0; i < parsedOrders.length; i++) {
+      new Product(parsedOrders[i].name, parsedOrders[i].imgPath, parsedOrders[i].clicks, parsedOrders[i].timesShown)
+    } 
+  }
+  
+}
+
+getProductsFromStorage();
+console.log(Product.allProducts)
+
+
+function makeProducts() {
+  new Product('bag', 'img/bag.jpg', 0, 0);
+  new Product('banana', 'img/banana.jpg', 0, 0);
+  new Product('bathroom', 'img/bathroom.jpg', 0, 0);
+  new Product('boots', 'img/boots.jpg', 0, 0);
+  new Product('breakfast', 'img/breakfast.jpg', 0, 0);
+  new Product('bubblegum', 'img/bubblegum.jpg', 0, 0);
+  new Product('chair', 'img/chair.jpg', 0, 0);
+  new Product('cthulhu', 'img/cthulhu.jpg', 0, 0);
+  new Product('dog-duck', 'img/dog-duck.jpg', 0, 0);
+  new Product('dragon', 'img/dragon.jpg', 0, 0);
+  new Product('pen', 'img/pen.jpg', 0, 0);
+  new Product('pet-sweep', 'img/pet-sweep.jpg', 0, 0);
+  new Product('scissors', 'img/scissors.jpg', 0, 0);
+  new Product('shark', 'img/shark.jpg', 0, 0);
+  new Product('sweep', 'img/sweep.png', 0, 0);
+  new Product('tauntaun', 'img/tauntaun.jpg', 0, 0);
+  new Product('unicorn', 'img/unicorn.jpg', 0, 0);
+  new Product('usb', 'img/usb.gif', 0, 0);
+  new Product('water-can', 'img/water-can.jpg', 0, 0);
+  new Product('wine-glass', 'img/wine-glass.jpg', 0, 0); 
+  //make to a string
+  console.log(Product.allProducts);
+  let stringifiedOrders = JSON.stringify(Product.allProducts);
+  console.log(stringifiedOrders);
+  //put the string of the array in storage
+  localStorage.setItem('previousOrders', stringifiedOrders);
+}
 
 const renderProducts = function() {
   leftProductImage.src = leftProduct.imgPath;
@@ -46,7 +105,6 @@ function productSelector() {
   previousProducts.push(leftProduct);
   previousProducts.push(centerProduct);
   previousProducts.push(rightProduct);
-  console.log(previousProducts);
 
   // a different index number than the first one
    while (previousProducts.includes(rightProduct)){
@@ -217,8 +275,6 @@ var myChart = new Chart(ctx, {
 }
 
 
-
-
 function handleClick(event) {
   // console.log(event.target);
   const clickedTarget = event.target;
@@ -258,35 +314,25 @@ function makeButton() {
 }
 
 function handleSubmit() {
+
   displayVoteCount();
   renderChart();
+  pushNewData();
 }
 
-new Product('bag', 'img/bag.jpg');
-new Product('banana', 'img/banana.jpg');
-new Product('bathroom', 'img/bathroom.jpg');
-new Product('boots', 'img/boots.jpg');
-new Product('breakfast', 'img/breakfast.jpg');
-new Product('bubblegum', 'img/bubblegum.jpg');
-new Product('chair', 'img/chair.jpg');
-new Product('cthulhu', 'img/cthulhu.jpg');
-new Product('dog-duck', 'img/dog-duck.jpg');
-new Product('dragon', 'img/dragon.jpg');
-new Product('pen', 'img/pen.jpg');
-new Product('pet-sweep', 'img/pet-sweep.jpg');
-new Product('scissors', 'img/scissors.jpg');
-new Product('shark', 'img/shark.jpg');
-new Product('sweep', 'img/sweep.png');
-new Product('tauntaun', 'img/tauntaun.jpg');
-new Product('unicorn', 'img/unicorn.jpg');
-new Product('usb', 'img/usb.gif');
-new Product('water-can', 'img/water-can.jpg');
-new Product('wine-glass', 'img/wine-glass.jpg');
 
-
+// Take all the new vote data and push it to the allProducts array, then push that to storage 
+function pushNewData() {
+  console.log(Product.allProducts);
+  let stringifiedOrders = JSON.stringify(Product.allProducts);
+  console.log(stringifiedOrders);
+  //put the string of the array in storage
+  localStorage.setItem('previousOrders', stringifiedOrders);
+}
 
 
 products.addEventListener('click', handleClick);
 
 productSelector();
 renderProducts();
+
