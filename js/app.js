@@ -29,6 +29,8 @@ function Product(name, imgPath, clicks, timesShown) {
 
   Product.allProducts.push(this);
 }
+console.log(Product.allProducts)
+
 
 // If there is something in storage, use it and add to it
 // If there is nothing in storage, make the products and get ready to add numbers to them. Make sure to add those numbers to the storage too.
@@ -45,7 +47,6 @@ function getProductsFromStorage() {
   if (stringifiedOrders === null) {
     // If there is nothing in storage, make the new items and go through loop again
     makeProducts();   
-    getProductsFromStorage();
     }
 
   if (stringifiedOrders !== null) {
@@ -107,19 +108,23 @@ function productSelector() {
   previousProducts.push(rightProduct);
 
   // a different index number than the first one
+  console.log(Product.allProducts);
    while (previousProducts.includes(rightProduct)){
     let rightIndex = Math.floor(Math.random() * Product.allProducts.length);
     rightProduct = Product.allProducts[rightIndex];
+    console.log(rightIndex);
    } previousProducts.push(rightProduct);
 
   while (previousProducts.includes(leftProduct)) {
    let leftIndex = Math.floor(Math.random() * Product.allProducts.length);
     leftProduct = Product.allProducts[leftIndex];
+    console.log(leftIndex);
   } previousProducts.push(leftProduct);
 
   while (previousProducts.includes(centerProduct)) {
     let centerIndex = Math.floor(Math.random() * Product.allProducts.length);
     centerProduct = Product.allProducts[centerIndex];
+    console.log(centerIndex);
   }
 }   
 
