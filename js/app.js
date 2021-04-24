@@ -4,6 +4,7 @@
 // Store the products array into local storage as a formatted JSON string
 // Retrieve the products array from local storage and then utilize the JSON.Parse() function. Remember, if your constructor utilizes prototype methods, you will have to send each item in the array back through the constructor function. 
 
+// Point to elements on the index page
 const results = document.getElementById('results');
 const resultTab = document.getElementById('aside');
 const products = document.getElementById('total_products');
@@ -15,12 +16,14 @@ const centerProductH = document.getElementById('center_product_h');
 const rightProductH = document.getElementById('right_product_h');
 const buttonAdd = document.getElementById('buttonOne');
 
+// Set global variables for the products an total clicks
 let totalClicks = 0;
 
 let leftProduct = null;
 let centerProduct = null;
 let rightProduct = null;
 
+// Create constructor function for adding new projects
 function Product(name, imgPath, clicks, timesShown) {
   this.name = name;
   this.imgPath = imgPath;
@@ -29,15 +32,13 @@ function Product(name, imgPath, clicks, timesShown) {
 
   Product.allProducts.push(this);
 }
-console.log(Product.allProducts)
-
-
-// If there is something in storage, use it and add to it
-// If there is nothing in storage, make the products and get ready to add numbers to them. Make sure to add those numbers to the storage too.
 
 // Array with all products when they are created. STORE IN LOCAL STORAGE
 Product.allProducts = [];
 
+// Create function to get products from storage.
+// If there is something in storage, use it and add to it
+// If there is nothing in storage, make the products and get ready to add numbers to them. Make sure to add those numbers to the storage too.
 function getProductsFromStorage() {
   // Set variable equal to previous orders in local storage
   let stringifiedOrders = localStorage.getItem('previousOrders');
@@ -60,9 +61,9 @@ function getProductsFromStorage() {
 }
 
 getProductsFromStorage();
-console.log(Product.allProducts)
 
 
+// Make all the products
 function makeProducts() {
   new Product('bag', 'img/bag.jpg', 0, 0);
   new Product('banana', 'img/banana.jpg', 0, 0);
@@ -92,6 +93,7 @@ function makeProducts() {
   localStorage.setItem('previousOrders', stringifiedOrders);
 }
 
+// Render the products to the screen
 const renderProducts = function() {
   leftProductImage.src = leftProduct.imgPath;
   centerProductImage.src = centerProduct.imgPath;
@@ -101,6 +103,7 @@ const renderProducts = function() {
   rightProductH.textContent = rightProduct.name;
 }
 
+// Function to choose products that were not in the previous three, and also that are different from one another
 function productSelector() {
   const previousProducts = [];
   previousProducts.push(leftProduct);
@@ -128,7 +131,7 @@ function productSelector() {
   }
 }   
 
-
+// Display the votes on the left of the page. Run after the button click.
 function displayVoteCount() {
   // remove current input and replace
   results.innerHTML = ' ';
@@ -139,11 +142,11 @@ function displayVoteCount() {
   }
 }
 
+// Also run after the button click. Renders the chart with chart.js.
 function renderChart() {
   let labelData = [];
   for (let i = 0; i < Product.allProducts.length; i++){
     labelData.push(Product.allProducts[i].name);
-    // console.log(Product.allProducts[i].name);
   }
   let voteData = [];
   for (let i = 0; i < Product.allProducts.length; i++){
@@ -156,6 +159,7 @@ function renderChart() {
   }
 
 
+// Create chart storing all data shown on the side, but in a visual format
 var ctx = document.getElementById('productChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
@@ -279,14 +283,14 @@ var myChart = new Chart(ctx, {
 
 }
 
-
+// Control what happens when an image is clicked on
 function handleClick(event) {
   // console.log(event.target);
   const clickedTarget = event.target;
   const id = clickedTarget.id;
   // console.log(id);
 
-  if (totalClicks < 24) {
+  if (totalClicks < 25) {
     if (id === 'left_product_img' || id === 'right_product_img' || id === 'center_product_img') {
       if (id === 'left_product_img') {
         leftProduct.clicks++;
@@ -308,6 +312,7 @@ function handleClick(event) {
   }
 }
 
+// Create a button that appears only after the user has chosen 25 items
 function makeButton() {
   const btn = document.createElement("BUTTON");
   btn.innerHTML = "View Results";
@@ -318,6 +323,7 @@ function makeButton() {
   buttonAdd.appendChild(btn);
 }
 
+// Display the vote data on the side, the chart below, and push it to local storage
 function handleSubmit() {
 
   displayVoteCount();
